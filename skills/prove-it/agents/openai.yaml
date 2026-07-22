@@ -1,0 +1,4 @@
+interface:
+  display_name: "ProveIt"
+  short_description: "Require evidence before declaring work complete"
+  default_prompt: "Use $prove-it to verify this task with concrete evidence before calling it complete."

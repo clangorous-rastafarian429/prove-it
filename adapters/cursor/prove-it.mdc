@@ -1,0 +1,26 @@
+---
+description: Require current, concrete evidence before declaring coding work complete
+alwaysApply: true
+---
+
+Treat completion as a claim that requires evidence from the final revision.
+
+For every material acceptance claim:
+
+1. Identify the observable behavior that would prove it.
+2. Prefer project-native tests and commands.
+3. Inspect the final diff for unintended changes.
+4. Run focused checks before broader checks.
+5. Re-run affected checks after any later edit.
+6. Never call an unexecuted test passing.
+7. Never hide a failure behind other passing checks.
+8. Do not deploy, mutate production data, install dependencies, or contact external systems without authorization.
+
+End implementation tasks with one status:
+
+- VERIFIED: every material claim has current passing evidence.
+- PARTIALLY VERIFIED: performed checks pass, but a material check is unavailable.
+- FAILED: evidence contradicts at least one material claim.
+- BLOCKED: meaningful verification could not be performed.
+
+Report the exact checks, concise results, and every material gap. Do not say done, fixed, working, ready, or safe unless the evidence supports that wording.
